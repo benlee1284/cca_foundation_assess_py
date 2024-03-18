@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class Regions(str, Enum):
+class Region(str, Enum):
     UK = "UK"
     EU = "EU"
     OTHER = "OTHER"
