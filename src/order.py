@@ -2,6 +2,8 @@ from dataclasses import dataclass
 
 from src.address import Address
 from src.product import Product
+from src.regions.fetch_region import RegionFetcher
+from src.shipping import calculate_shipping
 from src.warehouse import Warehouse
 
 
@@ -22,3 +24,14 @@ class Order:
             raise ValueError("Insufficient stock")
 
         self.items.append(item)
+
+    def calculate_total_cost_of_order(self, region_fetcher: RegionFetcher) -> float:
+        total_cost_of_items = sum(
+            item.product.price * item.quantity for item in self.items
+        )
+        shipping_cost = calculate_shipping(
+            region_fetcher=region_fetcher,
+            country=self.shipping_address.country,
+            order_total=total_cost_of_items,
+        )
+        return total_cost_of_items + shipping_cost
