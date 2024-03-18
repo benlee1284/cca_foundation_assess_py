@@ -1,0 +1,6 @@
+Shipping cost to United Kingdom for order total ú99.99 is ú4.99
+Shipping cost to United Kingdom for order total ú100.0 is ú0.0
+Shipping cost to France for order total ú99.99 is ú8.99
+Shipping cost to France for order total ú100.0 is ú4.99
+Shipping cost to Albania for order total ú99.99 is ú9.99
+Shipping cost to Albania for order total ú100.0 is ú9.99
