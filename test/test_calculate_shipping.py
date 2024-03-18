@@ -10,8 +10,8 @@ from .common_test_doubles import region_fetcher_test_double
     "order_total, expected_shipping",
     [
         (1.0, 4.99),
-        (99.99, 4.99),
-        (100.00, 0.0),
+        (119.99, 4.99),
+        (120.00, 0.0),
     ],
 )
 def test_calculate_shipping_uk(order_total: float, expected_shipping: float):
@@ -26,9 +26,9 @@ def test_calculate_shipping_uk(order_total: float, expected_shipping: float):
 @pytest.mark.parametrize(
     "order_total, expected_shipping",
     [
-        (1.0, 8.99),
-        (99.99, 8.99),
-        (100.00, 4.99),
+        (1.0, 9.99),
+        (199.99, 9.99),
+        (200.00, 5.99),
     ],
 )
 def test_calculate_shipping_eu(order_total: float, expected_shipping: float):
