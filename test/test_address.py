@@ -9,10 +9,10 @@ def test_instantiate_address():
         street="High Street",
         city="Anytown",
         postcode="12345",
-        country=Country.UNITED_KINGDOM,
+        country=Country.UNITED_KINGDOM.value,
     )
     assert address.house == "1"
     assert address.street == "High Street"
     assert address.city == "Anytown"
     assert address.postcode == "12345"
-    assert address.country == Country.UNITED_KINGDOM
+    assert address.country == Country.UNITED_KINGDOM.value

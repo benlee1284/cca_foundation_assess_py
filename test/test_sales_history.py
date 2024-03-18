@@ -18,14 +18,14 @@ ADDRESS_1 = Address(
     street="High Street",
     city="Anytown",
     postcode="12345",
-    country=Country.UNITED_KINGDOM,
+    country=Country.UNITED_KINGDOM.value,
 )
 ADDRESS_2 = Address(
     house="2",
     street="Main Street",
     city="Othertown",
     postcode="12345",
-    country=Country.UNITED_KINGDOM,
+    country=Country.UNITED_KINGDOM.value,
 )
 
 

@@ -29,7 +29,7 @@ def test_add_items_to_order():
         street="High Street",
         city="Anytown",
         postcode="12345",
-        country=Country.UNITED_KINGDOM,
+        country=Country.UNITED_KINGDOM.value,
     )
     order = Order(shipping_address=address, items=[])
     item = Item(product=GUITAR, quantity=5)
@@ -48,7 +48,7 @@ def test_add_items_to_order_insufficient_stock():
         street="High Street",
         city="Anytown",
         postcode="12345",
-        country=Country.UNITED_KINGDOM,
+        country=Country.UNITED_KINGDOM.value,
     )
     order = Order(shipping_address=address, items=[])
     item = Item(product=GUITAR, quantity=5)
