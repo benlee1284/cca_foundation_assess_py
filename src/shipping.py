@@ -1,18 +1,11 @@
 import requests as requests
 
 from src.regions.constants import Regions
+from src.regions.fetch_region import fetch_region_from_country
 
 
 def calculate_shipping(country, order_total):
-    url = (
-        "https://npovmrfcyzu2gu42pmqa7zce6a0zikbf.lambda-url.eu-west-2.on.aws/?country="
-        + country
-    )
-
-    response = requests.get(url)
-    response.raise_for_status()
-
-    region = response.json()["region"]
+    region = fetch_region_from_country(country)
 
     shipping = 0.0
 
