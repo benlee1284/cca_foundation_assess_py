@@ -12,19 +12,15 @@ def calculate_shipping(
 ) -> float:
     region = region_fetcher(country)
 
-    shipping = 0.0
-
     if region == Regions.UK.value:
         if order_total < ORDER_TOTAL_SHIPPING_CUTOFF:
-            shipping = 4.99
+            return 4.99
+        return 0.0
 
-    if region == Regions.EU.value:
+    elif region == Regions.EU.value:
         if order_total < ORDER_TOTAL_SHIPPING_CUTOFF:
-            shipping = 8.99
-        else:
-            shipping = 4.99
+            return 8.99
+        return 4.99
 
-    if region == Regions.OTHER.value:
-        shipping = 9.99
-
-    return shipping
+    elif region == Regions.OTHER.value:
+        return 9.99
