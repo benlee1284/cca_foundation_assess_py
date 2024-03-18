@@ -55,3 +55,9 @@ def test_warehouse_adjust_stock_past_zero(entries: list[Entry]):
     warehouse = Warehouse(catalogue=entries)
     with pytest.raises(ValueError, match="Cannot reduce stock below 0"):
         warehouse.adjust_stock(GUITAR, 6)
+
+
+def test_warehouse_adjust_stock_negative_change(entries: list[Entry]):
+    warehouse = Warehouse(catalogue=entries)
+    with pytest.raises(ValueError, match="Stock change must be positive"):
+        warehouse.adjust_stock(GUITAR, -1)
