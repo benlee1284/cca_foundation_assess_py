@@ -113,3 +113,37 @@ class OrdersTestParam:
 def test_list_orders_for_product(orders_param: OrdersTestParam):
     sales_history = SalesHistory(orders=orders_param.orders)
     assert sales_history.list_orders_for_product(GUITAR) == orders_param.expected_orders
+
+
+@pytest.mark.parametrize(
+    "orders_param",
+    [
+        pytest.param(OrdersTestParam(orders=[], expected_orders=[]), id="empty"),
+        pytest.param(
+            OrdersTestParam(
+                orders=[
+                    Order(
+                        shipping_address=ADDRESS_1,
+                        items=[Item(product=GUITAR, quantity=5)],
+                    ),
+                    Order(
+                        shipping_address=ADDRESS_2,
+                        items=[Item(product=GUITAR, quantity=3)],
+                    ),
+                ],
+                expected_orders=[
+                    Order(
+                        shipping_address=ADDRESS_1,
+                        items=[Item(product=GUITAR, quantity=5)],
+                    ),
+                ],
+            ),
+            id="multiple-orders"
+        ),
+    ],
+)
+def test_list_orders_for_address(orders_param: OrdersTestParam):
+    sales_history = SalesHistory(orders=orders_param.orders)
+    assert (
+        sales_history.list_orders_for_address(ADDRESS_1) == orders_param.expected_orders
+    )
