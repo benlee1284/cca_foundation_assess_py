@@ -4,6 +4,9 @@ from src.regions.constants import Regions
 from src.regions.fetch_region import RegionFetcher
 
 
+ORDER_TOTAL_SHIPPING_CUTOFF = 100.0
+
+
 def calculate_shipping(
     region_fetcher: RegionFetcher, country: str, order_total: float
 ) -> float:
@@ -12,11 +15,11 @@ def calculate_shipping(
     shipping = 0.0
 
     if region == Regions.UK.value:
-        if order_total < 100.0:
+        if order_total < ORDER_TOTAL_SHIPPING_CUTOFF:
             shipping = 4.99
 
     if region == Regions.EU.value:
-        if order_total < 100:
+        if order_total < ORDER_TOTAL_SHIPPING_CUTOFF:
             shipping = 8.99
         else:
             shipping = 4.99
