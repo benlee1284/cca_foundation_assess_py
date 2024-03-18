@@ -1,4 +1,6 @@
 from dataclasses import dataclass
+
+from src.address import Address
 from src.order import Order
 from src.product import Product
 
@@ -26,3 +28,6 @@ class SalesHistory:
             filtered_orders.append(order_with_only_relevant_items)
 
         return filtered_orders
+
+    def list_orders_for_address(self, address: Address) -> list[Order]:
+        return [order for order in self.orders if order.shipping_address == address]
