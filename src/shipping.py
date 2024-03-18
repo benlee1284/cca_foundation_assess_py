@@ -1,6 +1,6 @@
 import requests as requests
 
-from src.regions import Regions
+from src.regions.constants import Regions
 
 
 def calculate_shipping(country, order_total):
