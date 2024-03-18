@@ -26,6 +26,9 @@ class Warehouse:
         return product_entry.stock
 
     def adjust_stock(self, product: Product, stock_change: int) -> None:
+        if stock_change < 0:
+            raise ValueError("Stock change must be positive")
+
         product_entry = self.get_product_entry(product)
         if product_entry is None:
             raise ValueError("Product not found")
