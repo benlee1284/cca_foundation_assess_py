@@ -3,6 +3,9 @@ from src.order import Order, Item
 from src.product import Product
 
 
+GUITAR = Product(id=1, description="Guitar", price=100)
+
+
 def test_add_items_to_order():
     address = Address(
         house="1",
@@ -12,8 +15,7 @@ def test_add_items_to_order():
         country="UK",
     )
     order = Order(shipping_address=address, items=[])
-    product = Product(id=1, description="Guitar", price=100)
-    item = Item(product=product, quantity=5)
+    item = Item(product=GUITAR, quantity=5)
 
     order.add_item(item)
     assert order.items == [item]
