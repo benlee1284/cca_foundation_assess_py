@@ -2,6 +2,7 @@ import pytest
 
 from src.address import Address
 from src.countries import Country
+from src.history import SalesHistory
 from src.order import Order, Item
 from src.product import Product
 from src.warehouse import Entry, Warehouse
@@ -95,3 +96,23 @@ def test_calculate_total_cost_of_order(order: Order, expected_total_cost: float)
         region_fetcher=region_fetcher_test_double,
     )
     assert result_under_test == expected_total_cost
+
+
+def test_confirm_order():
+    warehouse = Warehouse(
+        catalogue=[Entry(product=GUITAR, stock=10), Entry(product=AMP, stock=1)]
+    )
+    sales_history = SalesHistory(orders=[])
+    order = Order(
+        shipping_address=ADDRESS,
+        items=[
+            Item(product=GUITAR, quantity=5),
+            Item(product=AMP, quantity=1),
+        ],
+    )
+
+    order.confirm_order(warehouse, sales_history)
+
+    assert warehouse.check_stock(GUITAR) == 5
+    assert warehouse.check_stock(AMP) == 0
+    assert sales_history.orders == [order]
