@@ -1,11 +1,13 @@
 import requests as requests
 
 from src.regions.constants import Regions
-from src.regions.fetch_region import fetch_region_from_country
+from src.regions.fetch_region import RegionFetcher, fetch_region_from_country
 
 
-def calculate_shipping(country, order_total):
-    region = fetch_region_from_country(country)
+def calculate_shipping(
+    region_fetcher: RegionFetcher, country: str, order_total: float
+) -> float:
+    region = region_fetcher(country)
 
     shipping = 0.0
 
