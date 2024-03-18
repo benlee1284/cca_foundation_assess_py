@@ -1,10 +1,16 @@
+from __future__ import annotations
+
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
 from src.address import Address
 from src.product import Product
 from src.regions.fetch_region import RegionFetcher
 from src.shipping import calculate_shipping
 from src.warehouse import Warehouse
+
+if TYPE_CHECKING:
+    from src.history import SalesHistory
 
 
 @dataclass
@@ -35,3 +41,9 @@ class Order:
             order_total=total_cost_of_items,
         )
         return total_cost_of_items + shipping_cost
+
+    def confirm_order(self, warehouse: Warehouse, sales_history: SalesHistory) -> None:
+        for item in self.items:
+            warehouse.adjust_stock(item.product, item.quantity)
+
+        sales_history.orders.append(self)
