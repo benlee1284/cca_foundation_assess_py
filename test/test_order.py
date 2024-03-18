@@ -1,3 +1,5 @@
+import pytest
+
 from src.address import Address
 from src.order import Order, Item
 from src.product import Product
@@ -24,3 +26,20 @@ def test_add_items_to_order():
 
     order.add_item(item, warehouse)
     assert order.items == [item, item]
+
+
+def test_add_items_to_order_insufficient_stock():
+    warehouse = Warehouse(catalogue=[Entry(product=GUITAR, stock=1)])
+    address = Address(
+        house="1",
+        street="High Street",
+        city="Anytown",
+        postcode="12345",
+        country="UK",
+    )
+    order = Order(shipping_address=address, items=[])
+    item = Item(product=GUITAR, quantity=5)
+
+    with pytest.raises(ValueError, match="Insufficient stock"):
+        order.add_item(item, warehouse)
+    assert order.items == []
