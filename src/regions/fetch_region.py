@@ -1,5 +1,10 @@
 import requests
+from typing import Protocol
 
+
+class RegionFetcher(Protocol):
+    @staticmethod
+    def __call__(country: str) -> str: ...
 
 
 def fetch_region_from_country(country: str) -> str:
