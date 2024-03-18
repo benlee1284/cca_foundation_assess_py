@@ -61,3 +61,23 @@ def test_warehouse_adjust_stock_negative_change(entries: list[Entry]):
     warehouse = Warehouse(catalogue=entries)
     with pytest.raises(ValueError, match="Stock change must be positive"):
         warehouse.adjust_stock(GUITAR, -1)
+
+
+def test_warehouse_receive_stock_product_entry_doesnt_exist():
+    warehouse = Warehouse(catalogue=[])
+    product_entry = Entry(product=GUITAR, stock=10)
+
+    warehouse.receive_stock(product=product_entry.product, stock=product_entry.stock)
+
+    assert warehouse.catalogue == [product_entry]
+
+
+def test_warehouse_receive_stock_product_entry_already_exists():
+    product_entry = Entry(product=GUITAR, stock=10)
+    warehouse = Warehouse(catalogue=[product_entry])
+
+    additional_stock = 5
+
+    warehouse.receive_stock(product=product_entry.product, stock=additional_stock)
+
+    assert warehouse.catalogue == [Entry(product=GUITAR, stock=15)]
