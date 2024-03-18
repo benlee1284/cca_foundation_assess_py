@@ -13,19 +13,20 @@ class Entry:
 class Warehouse:
     catalogue: list[Entry]
 
-    def check_stock(self, product: Product) -> int:
-        product_entry = next(
+    def get_product_entry(self, product: Product) -> Entry | None:
+        return next(
             filter(lambda entry: entry.product == product, self.catalogue), None
         )
+
+    def check_stock(self, product: Product) -> int:
+        product_entry = self.get_product_entry(product)
         if product_entry is None:
             return 0
 
         return product_entry.stock
 
     def adjust_stock(self, product: Product, stock_change: int) -> None:
-        product_entry = next(
-            filter(lambda entry: entry.product == product, self.catalogue), None
-        )
+        product_entry = self.get_product_entry(product)
         if product_entry is None:
             raise ValueError("Product not found")
 
