@@ -60,41 +60,38 @@ def test_add_items_to_order_insufficient_stock():
 
 
 @pytest.mark.parametrize(
-    "order, expected_total_cost",
+    "items, expected_total_cost",
     [
         pytest.param(
-            Order(shipping_address=ADDRESS, items=[]),
+            [],
             4.99,
             id="empty-order",
         ),
         pytest.param(
-            Order(
-                shipping_address=ADDRESS,
-                items=[
-                    Item(product=GUITAR, quantity=5),
-                    Item(product=AMP, quantity=1),
-                ],
-            ),
+            [
+                Item(product=GUITAR, quantity=5),
+                Item(product=AMP, quantity=1),
+            ],
             550.0,
             id="multiple-items-free-shipping",
         ),
         pytest.param(
-            Order(
-                shipping_address=ADDRESS,
-                items=[
-                    Item(product=AMP, quantity=1),
-                    Item(product=STRINGS, quantity=3),
-                ],
-            ),
+            [
+                Item(product=AMP, quantity=1),
+                Item(product=STRINGS, quantity=3),
+            ],
             84.99,
             id="multiple-items-plus-shipping",
         ),
     ],
 )
-def test_calculate_total_cost_of_order(order: Order, expected_total_cost: float):
-    result_under_test = order.calculate_total_cost_of_order(
+def test_calculate_total_cost_of_order(items: list[Item], expected_total_cost: float):
+    order = Order(
         region_fetcher=region_fetcher_test_double,
+        shipping_address=ADDRESS,
+        items=items,
     )
+    result_under_test = order.calculate_total_cost_of_order()
     assert result_under_test == expected_total_cost
 
 
