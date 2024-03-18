@@ -21,3 +21,16 @@ class Warehouse:
             return 0
 
         return product_entry.stock
+
+    def adjust_stock(self, product: Product, stock_change: int) -> None:
+        product_entry = next(
+            filter(lambda entry: entry.product == product, self.catalogue), None
+        )
+        if product_entry is None:
+            raise ValueError("Product not found")
+
+        new_stock = product_entry.stock + stock_change
+        if new_stock < 0:
+            raise ValueError("Cannot reduce stock below 0")
+
+        product_entry.stock = new_stock
