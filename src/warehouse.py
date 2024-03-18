@@ -38,3 +38,11 @@ class Warehouse:
             raise ValueError("Cannot reduce stock below 0")
 
         product_entry.stock = new_stock
+
+    def receive_stock(self, product: Product, stock: int) -> None:
+        product_entry = self.get_product_entry(product)
+        if product_entry is None:
+            self.catalogue.append(Entry(product=product, stock=stock))
+            return
+
+        product_entry.stock += stock
