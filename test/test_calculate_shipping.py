@@ -31,3 +31,20 @@ def test_calculate_shipping_uk(order_total: float, expected_shipping: float):
         order_total=order_total,
     )
     assert shipping == expected_shipping
+
+
+@pytest.mark.parametrize(
+    "order_total, expected_shipping",
+    [
+        (1.0, 8.99),
+        (99.99, 8.99),
+        (100.00, 4.99),
+    ],
+)
+def test_calculate_shipping_eu(order_total: float, expected_shipping: float):
+    shipping = calculate_shipping(
+        region_fetcher=region_fetcher_test_double,
+        country=Country.FRANCE.value,
+        order_total=order_total,
+    )
+    assert shipping == expected_shipping
