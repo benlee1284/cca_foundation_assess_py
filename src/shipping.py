@@ -1,5 +1,7 @@
 import requests as requests
 
+from src.regions import Regions
+
 
 def calculate_shipping(country, order_total):
     url = (
@@ -14,17 +16,17 @@ def calculate_shipping(country, order_total):
 
     shipping = 0.0
 
-    if region == "UK":
+    if region == Regions.UK.value:
         if order_total < 100.0:
             shipping = 4.99
 
-    if region == "EU":
+    if region == Regions.EU.value:
         if order_total < 100:
             shipping = 8.99
         else:
             shipping = 4.99
 
-    if region == "OTHER":
+    if region == Regions.OTHER.value:
         shipping = 9.99
 
     return shipping
