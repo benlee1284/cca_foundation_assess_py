@@ -1,6 +1,7 @@
 import pytest
 
 from src.address import Address
+from src.countries import Country
 from src.order import Order, Item
 from src.product import Product
 from src.warehouse import Entry, Warehouse
@@ -16,7 +17,7 @@ def test_add_items_to_order():
         street="High Street",
         city="Anytown",
         postcode="12345",
-        country="UK",
+        country=Country.UNITED_KINGDOM,
     )
     order = Order(shipping_address=address, items=[])
     item = Item(product=GUITAR, quantity=5)
@@ -35,7 +36,7 @@ def test_add_items_to_order_insufficient_stock():
         street="High Street",
         city="Anytown",
         postcode="12345",
-        country="UK",
+        country=Country.UNITED_KINGDOM,
     )
     order = Order(shipping_address=address, items=[])
     item = Item(product=GUITAR, quantity=5)
