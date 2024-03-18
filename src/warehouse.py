@@ -30,7 +30,7 @@ class Warehouse:
         if product_entry is None:
             raise ValueError("Product not found")
 
-        new_stock = product_entry.stock + stock_change
+        new_stock = product_entry.stock - stock_change
         if new_stock < 0:
             raise ValueError("Cannot reduce stock below 0")
 

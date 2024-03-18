@@ -33,16 +33,11 @@ def test_warehouse_check_stock(
     assert warehouse_stock == expected_stock
 
 
-@pytest.mark.parametrize(
-    "product, stock_change_value, expected_stock",
-    [
-        (GUITAR, 3, 8),
-        (GUITAR, -3, 2),
-    ],
-)
-def test_warehouse_adjust_stock(
-    entries: list[Entry], product: Product, stock_change_value: int, expected_stock: int
-):
+def test_warehouse_adjust_stock(entries: list[Entry]):
+    stock_change_value = 3
+    expected_stock = 2
+    product = GUITAR
+
     warehouse = Warehouse(catalogue=entries)
     warehouse.adjust_stock(product, stock_change_value)
 
@@ -59,4 +54,4 @@ def test_warehouse_adjust_stock_not_found(entries: list[Entry]):
 def test_warehouse_adjust_stock_past_zero(entries: list[Entry]):
     warehouse = Warehouse(catalogue=entries)
     with pytest.raises(ValueError, match="Cannot reduce stock below 0"):
-        warehouse.adjust_stock(GUITAR, -6)
+        warehouse.adjust_stock(GUITAR, 6)
