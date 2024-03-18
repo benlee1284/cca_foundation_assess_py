@@ -138,7 +138,7 @@ def test_list_orders_for_product(orders_param: OrdersTestParam):
                     ),
                 ],
             ),
-            id="multiple-orders"
+            id="multiple-orders",
         ),
     ],
 )
