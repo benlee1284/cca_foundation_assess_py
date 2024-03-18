@@ -8,6 +8,8 @@ from src.history import SalesHistory
 from src.order import Item, Order
 from src.product import Product
 
+from .common_test_doubles import region_fetcher_test_double
+
 
 GUITAR = Product(id=1, description="Guitar", price=100)
 AMP = Product(id=2, description="Amplifier", price=50)
@@ -43,12 +45,14 @@ class OrdersTestParam:
             OrdersTestParam(
                 orders=[
                     Order(
+                        region_fetcher=region_fetcher_test_double,
                         shipping_address=ADDRESS_1,
                         items=[Item(product=GUITAR, quantity=5)],
                     ),
                 ],
                 expected_orders=[
                     Order(
+                        region_fetcher=region_fetcher_test_double,
                         shipping_address=ADDRESS_1,
                         items=[Item(product=GUITAR, quantity=5)],
                     ),
@@ -60,6 +64,7 @@ class OrdersTestParam:
             OrdersTestParam(
                 orders=[
                     Order(
+                        region_fetcher=region_fetcher_test_double,
                         shipping_address=ADDRESS_1,
                         items=[
                             Item(product=GUITAR, quantity=5),
@@ -69,6 +74,7 @@ class OrdersTestParam:
                 ],
                 expected_orders=[
                     Order(
+                        region_fetcher=region_fetcher_test_double,
                         shipping_address=ADDRESS_1,
                         items=[Item(product=GUITAR, quantity=5)],
                     ),
@@ -80,6 +86,7 @@ class OrdersTestParam:
             OrdersTestParam(
                 orders=[
                     Order(
+                        region_fetcher=region_fetcher_test_double,
                         shipping_address=ADDRESS_1,
                         items=[
                             Item(product=GUITAR, quantity=5),
@@ -87,20 +94,24 @@ class OrdersTestParam:
                         ],
                     ),
                     Order(
+                        region_fetcher=region_fetcher_test_double,
                         shipping_address=ADDRESS_1,
                         items=[Item(product=STRINGS, quantity=2)],
                     ),
                     Order(
+                        region_fetcher=region_fetcher_test_double,
                         shipping_address=ADDRESS_2,
                         items=[Item(product=GUITAR, quantity=3)],
                     ),
                 ],
                 expected_orders=[
                     Order(
+                        region_fetcher=region_fetcher_test_double,
                         shipping_address=ADDRESS_1,
                         items=[Item(product=GUITAR, quantity=5)],
                     ),
                     Order(
+                        region_fetcher=region_fetcher_test_double,
                         shipping_address=ADDRESS_2,
                         items=[Item(product=GUITAR, quantity=3)],
                     ),
@@ -123,16 +134,19 @@ def test_list_orders_for_product(orders_param: OrdersTestParam):
             OrdersTestParam(
                 orders=[
                     Order(
+                        region_fetcher=region_fetcher_test_double,
                         shipping_address=ADDRESS_1,
                         items=[Item(product=GUITAR, quantity=5)],
                     ),
                     Order(
+                        region_fetcher=region_fetcher_test_double,
                         shipping_address=ADDRESS_2,
                         items=[Item(product=GUITAR, quantity=3)],
                     ),
                 ],
                 expected_orders=[
                     Order(
+                        region_fetcher=region_fetcher_test_double,
                         shipping_address=ADDRESS_1,
                         items=[Item(product=GUITAR, quantity=5)],
                     ),

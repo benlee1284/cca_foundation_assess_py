@@ -32,7 +32,11 @@ def test_add_items_to_order():
         postcode="12345",
         country=Country.UNITED_KINGDOM.value,
     )
-    order = Order(shipping_address=address, items=[])
+    order = Order(
+        region_fetcher=region_fetcher_test_double,
+        shipping_address=address,
+        items=[],
+    )
     item = Item(product=GUITAR, quantity=5)
 
     order.add_item(item, warehouse)
@@ -51,7 +55,11 @@ def test_add_items_to_order_insufficient_stock():
         postcode="12345",
         country=Country.UNITED_KINGDOM.value,
     )
-    order = Order(shipping_address=address, items=[])
+    order = Order(
+        region_fetcher=region_fetcher_test_double,
+        shipping_address=address,
+        items=[],
+    )
     item = Item(product=GUITAR, quantity=5)
 
     with pytest.raises(ValueError, match="Insufficient stock"):
@@ -101,6 +109,7 @@ def test_confirm_order():
     )
     sales_history = SalesHistory(orders=[])
     order = Order(
+        region_fetcher=region_fetcher_test_double,
         shipping_address=ADDRESS,
         items=[
             Item(product=GUITAR, quantity=5),

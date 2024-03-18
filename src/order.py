@@ -21,10 +21,10 @@ class Item:
 
 @dataclass
 class Order:
+    region_fetcher: RegionFetcher
+
     shipping_address: Address
     items: list[Item]
-
-    region_fetcher: RegionFetcher | None = None
 
     def add_item(self, item: Item, warehouse: Warehouse) -> None:
         stock = warehouse.check_stock(item.product)

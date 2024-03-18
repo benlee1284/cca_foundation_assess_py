@@ -21,6 +21,7 @@ class SalesHistory:
         for order in orders_containing_product:
             relevant_items = [item for item in order.items if item.product == product]
             order_with_only_relevant_items = Order(
+                region_fetcher=order.region_fetcher,
                 shipping_address=order.shipping_address,
                 items=relevant_items,
             )
