@@ -24,6 +24,8 @@ class Order:
     shipping_address: Address
     items: list[Item]
 
+    region_fetcher: RegionFetcher | None = None
+
     def add_item(self, item: Item, warehouse: Warehouse) -> None:
         stock = warehouse.check_stock(item.product)
         if stock < item.quantity:
@@ -31,12 +33,12 @@ class Order:
 
         self.items.append(item)
 
-    def calculate_total_cost_of_order(self, region_fetcher: RegionFetcher) -> float:
+    def calculate_total_cost_of_order(self) -> float:
         total_cost_of_items = sum(
             item.product.price * item.quantity for item in self.items
         )
         shipping_cost = calculate_shipping(
-            region_fetcher=region_fetcher,
+            region_fetcher=self.region_fetcher,
             country=self.shipping_address.country,
             order_total=total_cost_of_items,
         )
