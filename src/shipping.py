@@ -2,7 +2,10 @@ import requests as requests
 
 
 def calculate_shipping(country, order_total):
-    url = "https://npovmrfcyzu2gu42pmqa7zce6a0zikbf.lambda-url.eu-west-2.on.aws/?country=" + country
+    url = (
+        "https://npovmrfcyzu2gu42pmqa7zce6a0zikbf.lambda-url.eu-west-2.on.aws/?country="
+        + country
+    )
 
     response = requests.get(url)
     response.raise_for_status()

@@ -14,5 +14,3 @@ class Item:
 class Order:
     shipping_address: Address
     items: list[Item]
-
-

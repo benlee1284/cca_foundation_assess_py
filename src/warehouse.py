@@ -11,4 +11,3 @@ class Entry:
 @dataclass
 class Warehouse:
     catalogue: list[Entry]
-
